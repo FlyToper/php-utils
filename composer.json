@@ -1,0 +1,22 @@
+{
+    "name": "flytoper/php-utils",
+    "description": "php common utils",
+    "type": "l",
+    "require": {
+        "php": ">=5.6.0",
+        "ext-curl": "*"
+    },
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Fly",
+            "email": "fly13138@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "flytoper\\phputils\\": "src/"
+        }
+    }
+}
