@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * @purpose 文件导出
+ * @purpose Export file
  * @Author: cbf
  * @Time: 2022/9/23 23:53
  */
@@ -11,27 +11,27 @@ namespace flytoper\phputils\files;
 class Exporter
 {
     /**
-     *  导出 CSV文件
-     * @param array $data 二维数组数据
-     * @param array $headers 表头,格式： [key => name]
-     * @param $filename string 导出的文件名
-     * @param $rm_cols array 排查不导出的列
+     *  Export csv file
+     * @param array $data data to export
+     * @param array $headers file header： [key => name]
+     * @param $filename string filename
+     * @param $rm_cols array excluded columns
      * @return void
      */
     public static function exportCsv(array $data, array $headers, $filename, $rm_cols = [])
     {
-        // 设置 http header
+        // set http header
         header("Content-Disposition:attachment;filename={$filename}.csv");
         header('Content-Encoding: UTF-8');
         header("Content-type:application/vnd.ms-excel;charset=UTF-8");
 
-        // 打开php标准输出流
+        // open php standard stream
         $fp = fopen('php://output', 'a');
 
-        // 添加BOM头，以UTF8编码导出CSV文件，如果文件头未添加BOM头，打开会出现乱码。
+        // add Bom
         fwrite($fp, chr(0xEF) . chr(0xBB) . chr(0xBF));
 
-        // 查询需要输出的表头，以及对应列的key
+        // check and split headers
         $output_cols = [];
         $output_headers = [];
         foreach ($headers as $k => $v) {
@@ -42,10 +42,10 @@ class Exporter
             $output_headers = $v;
         }
 
-        // 输出表头
+        // output headers
         $output_headers && fputcsv($fp, $output_headers);
 
-        // 遍历输出每行数据
+        // foreach and output rows
         foreach ($data as $row) {
             $tmp = [];
             foreach ($output_cols as $k) {
@@ -73,7 +73,7 @@ class Exporter
             fputcsv($fp, $tmp);
         }
 
-        // 关闭输出流
+        // close resource
         fclose($fp);
         ob_flush();
         flush();

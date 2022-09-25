@@ -6,9 +6,25 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit3ab79754726ce6b4c8c85002e9f06bdc
 {
+    public static $prefixLengthsPsr4 = array (
+        'f' => 
+        array (
+            'flytoper\\phputils\\' => 18,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'flytoper\\phputils\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3ab79754726ce6b4c8c85002e9f06bdc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3ab79754726ce6b4c8c85002e9f06bdc::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }
